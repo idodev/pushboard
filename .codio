@@ -3,7 +3,7 @@
 
 // Run button configuration
   "commands": {
-      "Run": "env DATABASE_URL=mongodb://webuser:8yzfGFHtQMtN6ZtPMUfB2Afq@oceanic.mongohq.com:10003/pushboard node app.js"
+      "Run": "env MONGO_URL=mongodb://webuser:8yzfGFHtQMtN6ZtPMUfB2Afq@oceanic.mongohq.com:10003/pushboard node app.js"
   },
 
 // Preview button configuration
