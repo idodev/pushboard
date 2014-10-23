@@ -4,6 +4,8 @@ PUSHBOARD
 
 [ ![Codeship Status for idodev/pushboard](https://www.codeship.io/projects/5a908a70-3c61-0132-2ad5-7642376dcec1/status)](https://www.codeship.io/projects/42968)
 
+[![Coverage Status](https://coveralls.io/repos/idodev/pushboard/badge.png)](https://coveralls.io/r/idodev/pushboard)
+
 An open platform for the collection, display and action of data.
 
 
