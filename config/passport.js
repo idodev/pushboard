@@ -2,7 +2,7 @@ var LocalStrategy = require('passport-local').Strategy
 var BearerStrategy = require('passport-http-bearer').Strategy
 
 // get user model
-var User = require('../app/models/user')
+var User = require('../models/user')
 
 module.exports = function(passport) {
     
