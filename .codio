@@ -5,7 +5,7 @@
   "commands": {
       "Run": "env MONGO_URL=mongodb://webuser:8yzfGFHtQMtN6ZtPMUfB2Afq@oceanic.mongohq.com:10003/pushboard nodemon app.js",
       "Dev Tasks": "grunt",
-      "Test": "grunt test"
+      "Test": "env MONGO_URL=mongodb://webuser:8yzfGFHtQMtN6ZtPMUfB2Afq@oceanic.mongohq.com:10003/pushboard grunt test"
   },
 
 // Preview button configuration

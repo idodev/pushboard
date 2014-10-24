@@ -40,7 +40,7 @@ app.configure(function() {
 
 // launch ==========================================================================================
 server.listen(port)
-
+console.log('Listening on port ' + port)
 
 // socket initializing =============================================================================
 
@@ -49,9 +49,15 @@ io.on('connection',function(socket){
 })
 
 // routes ==========================================================================================
-require('./routes/routes')(app, passport,io) //load main routes, passing application and passport reference
-require('./routes/api-v1')(app, passport,io) //load api routes, passing application and passport reference
+require('./routes/routes')(app, passport,io) //load main routes, passing application, passport and socket reference
+require('./routes/api-v1')(app, passport,io) //load api routes, passing application, passport and socket reference
+
+
+exports = module.exports = server;
+// delegates use() function
+exports.use = function() {
+  app.use.apply(app, arguments);
+};
 
 
 
-console.log('Server started on port ' + port)

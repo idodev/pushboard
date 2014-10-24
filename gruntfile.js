@@ -61,17 +61,28 @@ module.exports = function (grunt) {
               reporter: 'spec'
             }
           }
+        },
+        
+        express: {
+          dev: {
+            options: {
+              script:  'app.js',
+                delay: 1000
+            }
+          }
         }
         
         
 	})
     
     grunt.loadNpmTasks('grunt-contrib-uglify')
-    grunt.loadNpmTasks('grunt-mocha-test')
     grunt.loadNpmTasks('grunt-contrib-watch')
+    
+    grunt.loadNpmTasks('grunt-mocha-test')
+    grunt.loadNpmTasks('grunt-express-server');
     
 	grunt.registerTask('default', ['uglify', 'watch'])
     
-    grunt.registerTask('test', ['mochaTest'])
-    
+    grunt.registerTask('test', ['express:dev','mochaTest'])
+
 };

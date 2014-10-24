@@ -31,6 +31,8 @@
     "grunt-coveralls": "~1.0.0",
     "grunt-mocha-test": "~0.12.2",
     "should": "~4.1.0",
-    "request": "~2.46.0"
+    "request": "~2.46.0",
+    "grunt-express": "~1.4.1",
+    "grunt-express-server": "~0.4.19"
   }
 }
