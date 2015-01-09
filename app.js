@@ -30,6 +30,8 @@ app.configure(function() {
     
     app.set('view engine', 'ejs')
     
+    app.use(express.static(process.cwd() + '/public'));
+    
     // passport config
     app.use(express.session({ secret: '8DVxPrNqAD46dhnKPPfeUgsn' }))
     app.use(passport.initialize())

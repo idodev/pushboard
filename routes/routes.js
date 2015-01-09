@@ -19,7 +19,7 @@ module.exports = function(app, passport, socket) {
     
     // process the login form
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/profile',
+        successRedirect: '/boards',
         failureRedirect: '/login',
         failureFlash: true
     }))
@@ -54,7 +54,7 @@ module.exports = function(app, passport, socket) {
 			user : req.user // get the user out of session and pass to template
 		})
 	})
-
+    
     
 	// =====================================
 	// LOGOUT ==============================
@@ -63,6 +63,19 @@ module.exports = function(app, passport, socket) {
 		req.logout()
 		res.redirect('/')
 	})
+    
+    
+    // =====================================
+	// BOARDS ==============================
+	// =====================================
+	// we will want this protected so you have to be logged in to visit
+	app.get('/boards', isLoggedIn, function(req, res) {
+		res.render('boards', {
+			user : req.user // get the user out of session and pass to template
+		})
+	})
+    
+    
     
     
 }

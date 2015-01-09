@@ -6,8 +6,8 @@ module.exports = function(app, passport, io) {
     // =====================================
 	// API V1 ==============================
 	// =====================================
-	var apiAuth = [passport.authenticate('api-login', {session: false})]
-    
+	// 'local-login'
+	
     app.get('/api/v1', apiAuth, function(req, res) {
         res.end("You're connected to the PushBoard API v1")
     })
@@ -56,17 +56,13 @@ module.exports = function(app, passport, io) {
         EventController.delete(req,res)
     })
     
-}
-
-function isLoggedIn(req, res, next) {
-
-    // if user is currently authenticated in the session then carry on
-    if( req.isAuthenticated()) 
-        return next()
+    function apiAuth(req, res, next) {
+      
+    if (req.isAuthenticated())
+        return next() // already authenticated via session cookie
     
+    passport.authenticate('api-login',{ session: false })(req, res, next)    
 
-        // if they arent then redirect them to the login page
-        res.redirect('/login')
-
+}
 }
 
