@@ -29,8 +29,8 @@ app.configure(function() {
     app.use(express.bodyParser()) //fetch html form information
     
     app.set('view engine', 'ejs')
-    
-    app.use(express.static(process.cwd() + '/public'));
+    app.set('views',  __dirname + '/views');
+    app.use(express.static( __dirname + '/public'));
     
     // passport config
     app.use(express.session({ secret: '8DVxPrNqAD46dhnKPPfeUgsn' }))
@@ -41,8 +41,8 @@ app.configure(function() {
 })
 
 // launch ==========================================================================================
-server.listen(port)
-console.log('Listening on port ' + port)
+//server.listen(port)
+//console.log('Listening on port ' + port)
 
 // socket initializing =============================================================================
 
@@ -51,15 +51,10 @@ io.on('connection',function(socket){
 })
 
 // routes ==========================================================================================
-require('./routes/routes')(app, passport,io) //load main routes, passing application, passport and socket reference
-require('./routes/api-v1')(app, passport,io) //load api routes, passing application, passport and socket reference
+require('./routes/routes')(app, passport, io) //load main routes, passing application, passport and socket reference
+require('./routes/api-v1')(app, passport, io) //load api routes, passing application, passport and socket reference
 
 
-exports = module.exports = server;
-// delegates use() function
-exports.use = function() {
-  app.use.apply(app, arguments);
-};
-
+exports = module.exports = app
 
 

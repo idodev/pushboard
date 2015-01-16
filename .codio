@@ -3,10 +3,11 @@
 
 // Run button configuration
   "commands": {
-      "Run": "env MONGO_URL=mongodb://webuser:8yzfGFHtQMtN6ZtPMUfB2Afq@oceanic.mongohq.com:10003/pushboard node app.js",
-      "Run w/ Rebuild": "env MONGO_URL=mongodb://webuser:8yzfGFHtQMtN6ZtPMUfB2Afq@oceanic.mongohq.com:10003/pushboard nodemon app.js",
+      "Run": "env MONGO_URL=mongodb://webuser:8yzfGFHtQMtN6ZtPMUfB2Afq@oceanic.mongohq.com:10003/pushboard node app/app.js",
+      "Run w/ Rebuild": "env MONGO_URL=mongodb://webuser:8yzfGFHtQMtN6ZtPMUfB2Afq@oceanic.mongohq.com:10003/pushboard nodemon app/app.js",
       "Dev Tasks": "grunt",
-      "Test": "env MONGO_URL=mongodb://webuser:8yzfGFHtQMtN6ZtPMUfB2Afq@oceanic.mongohq.com:10003/pushboard grunt test"
+      "Test": "env MONGO_URL=mongodb://webuser:8yzfGFHtQMtN6ZtPMUfB2Afq@oceanic.mongohq.com:10003/pushboard grunt test",
+      "Coverage": "env MONGO_URL=mongodb://webuser:8yzfGFHtQMtN6ZtPMUfB2Afq@oceanic.mongohq.com:10003/pushboard grunt coverage"
   },
 
 // Preview button configuration

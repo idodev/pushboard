@@ -1,0 +1,5 @@
+{
+    //JS Hint Configuration file
+    
+    "asi"       : true      // Tolerate Automatic Semicolon Insertion (no semicolons)
+}

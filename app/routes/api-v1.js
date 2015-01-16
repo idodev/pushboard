@@ -57,12 +57,9 @@ module.exports = function(app, passport, io) {
     })
     
     function apiAuth(req, res, next) {
-      
-    if (req.isAuthenticated())
-        return next() // already authenticated via session cookie
-    
-    passport.authenticate('api-login',{ session: false })(req, res, next)    
-
-}
+        if (req.isAuthenticated())
+            return next() // already authenticated via session cookie
+        passport.authenticate('api-login',{ session: false })(req, res, next)    
+    }
 }
 

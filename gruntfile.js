@@ -16,18 +16,18 @@ module.exports = function (grunt) {
             " */\n" +
             "\n"
    
-    
 
 	grunt.initConfig({
 		pkg: pkgFile,
         
-		uglify: {
+        uglify: {
             app: {
                 options: {
                     compress: {
                         drop_console: true
                     },
-                    banner: banner
+                    banner: banner,
+                    sourceMap: true
                 },
                 files: {
                     'app/public/js/app.min.js': 'app/public/js/app/*.js'
@@ -36,13 +36,25 @@ module.exports = function (grunt) {
             vendor: {
                 options: {
                     mangle: false,
-                    banner: '/* Combined third part javascript libraries, for more info visit:\n * https://github.com/idodev/pushboard/tree/master/js/vendor\n */\n\n'
+                    banner: '/* Combined, minified, third party javascript libraries, for more info visit:\n * https://github.com/idodev/pushboard/tree/master/js/vendor\n */\n\n',
+                    sourceMap: true
                 },
                 files: {
                     'app/public/js/vendor.min.js': 'app/public/js/vendor/*.js'
                 }
             }
-        },   
+        },
+        sass: {
+            dist: {
+				options: {
+                    /*style: 'compressed',
+                    banner: banner*/
+                },
+                files: {
+					'app/public/css/main.min.css' : 'app/public/css/sass/main.scss'
+				}
+			}
+        },
 		watch: {
 			js_app: {
 				files: 'app/public/js/app/*.js',
@@ -51,24 +63,74 @@ module.exports = function (grunt) {
             js_vendor: {
 				files: 'app/public/js/vendor/*.js',
 				tasks: ['uglify:vendor']
-			}
+			},
+            sass: {
+                files: 'app/public/css/sass/main.scss',
+				tasks: ['sass']
+            }
 		},
+        
+        
+        env: {
+          coverage: {
+            APP_DIR_FOR_CODE_COVERAGE: '../test/coverage/instrument/app/'
+          }
+        },
+        
+        
+        /* test suite*/
         mochaTest: {
           test: {
-            src: ['test/*.js'],
+            src: ['test/api/*.js'],
             options: {
-              require: ['should','request'],
+              require: ['should', 'request', 'supertest'],
               reporter: 'spec'
             }
           }
         },
         
-        express: {
-          dev: {
+        /*coverage generation*/
+        clean: {
+            coverageFolder: 'build/coverage'
+        },
+        
+        instrument: {
+          files: ['app/*.js','app/config/*.js','app/controllers/*.js','app/models/*.js','app/routes/*.js'],
+          options: {
+            lazy: false,
+            basePath: 'build/coverage/instrument'
+          }
+        },
+        reloadTasks : {
+          rootPath : 'build/coverage/instrument/tasks'
+        },
+        storeCoverage: {
             options: {
-              script:  'app.js',
+                dir: 'build/coverage/reports'
+            }
+        },
+        makeReport: {
+          src: 'build/coverage/reports/**/*.json',
+          options: {
+            type: 'lcov',
+            dir: 'build/coverage/reports',
+            print: 'detail'
+          }
+        },
+        
+        /* express set up for tests*/
+        express: {
+          test: {
+            options: {
+              script:  'app/app.js',
                 delay: 1000
             }
+          },
+          coverage: {
+             options: {
+              script:  'build/coverage/instrument/app/app.js',
+                delay: 1000
+            } 
           }
         }
         
@@ -76,13 +138,18 @@ module.exports = function (grunt) {
 	})
     
     grunt.loadNpmTasks('grunt-contrib-uglify')
+    grunt.loadNpmTasks('grunt-contrib-sass')
     grunt.loadNpmTasks('grunt-contrib-watch')
     
     grunt.loadNpmTasks('grunt-mocha-test')
-    grunt.loadNpmTasks('grunt-express-server');
+    grunt.loadNpmTasks('grunt-express-server')
+    grunt.loadNpmTasks('grunt-istanbul')
+    grunt.loadNpmTasks('grunt-contrib-clean')
     
-	grunt.registerTask('default', ['uglify', 'watch'])
+	grunt.registerTask('default', ['uglify', 'sass', 'watch'])
     
-    grunt.registerTask('test', ['express:dev','mochaTest'])
+    grunt.registerTask('test', ['mochaTest'])
+    
+    grunt.registerTask('coverage', ['clean','instrument','reloadTasks','mochaTest','storeCoverage','makeReport'])
 
 };

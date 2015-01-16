@@ -11,7 +11,7 @@ module.exports = {
                         res.statusCode = 400
                         return res.json({err:err.message})
                     }
-                    
+                                        
                     res.statusCode = 201
                     res.json(board)
                 })
