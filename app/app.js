@@ -41,8 +41,8 @@ app.configure(function() {
 })
 
 // launch ==========================================================================================
-//server.listen(port)
-//console.log('Listening on port ' + port)
+server.listen(port)
+console.log('Listening on port ' + port)
 
 // socket initializing =============================================================================
 
